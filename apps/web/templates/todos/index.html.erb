@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col">
+    <h2>Todo listing</h2>
+  </div>
+</div>
+<% if todos.any? %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Status</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% todos.each do |todo| %>
+        <tr>
+          <td><%= todo.name %></td>
+          <td>
+            <span class="<%= status_color_map(todo.status) %>"><%= todo.status %></span></td>
+          <td>
+            <a href=<%= routes.edit_todo_path(id: todo.id) %> class="btn btn-dark">Edit</a>
+            <%= 
+              form_for :todo, routes.todo_path(id: todo.id), method: :delete, class: 'btn' do
+                submit 'Delete', class: "btn btn-danger"
+              end
+            %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p class="placeholder">There are no todos yet.</p>
+<% end %>
+
+<a href=<%= routes.new_todo_path%> class="btn btn-primary">Add new todo</a>

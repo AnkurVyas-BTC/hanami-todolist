@@ -1,0 +1,20 @@
+<h2>Add todo</h2>
+
+<%=
+  form_for :todo, routes.todos_path do
+    div class: 'input mb-3' do
+      label      :name, class: 'form-label'
+      text_field :name, class: 'form-control', required: true
+    end
+
+    div class: 'input mb-3' do
+      label      :status, class: 'form-label'
+      values = Hash['Completed' => 'completed', 'Pending' => 'pending', 'Inprogress' => 'inprogress']
+      select :status, values, class: "form-select"
+    end
+
+    div class: 'controls mb-3' do
+      submit 'Create', class: "btn btn-success"
+    end
+  end
+%>
