@@ -3,11 +3,22 @@ module Web
     module Todos
       class Create
         include Web::Action
+        
+        params do
+          required(:todo).schema do
+            required(:name).filled(:str?)
+            required(:status).filled(:str?)
+          end
+        end
 
         def call(params)
-          TodoRepository.new.create(params[:todo])
+          if params.valid?
+            TodoRepository.new.create(params[:todo])
 
-          redirect_to '/todos'
+            redirect_to '/todos'
+          else
+            self.status = 422
+          end
         end
       end
     end
