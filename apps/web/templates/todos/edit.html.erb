@@ -1,5 +1,16 @@
 <h2>Edit todo</h2>
 
+<% unless params.valid? %>
+  <div class="errors text-danger">
+    <h4>There was a problem with your submission</h4>
+    <ul>
+      <% params.error_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <%=
   form_for :todo, routes.todo_path(id: todo.id), { method: 'patch' } do
     div class: 'input mb-3' do
